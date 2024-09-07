@@ -30,8 +30,6 @@ public class User extends AbstractAuditing {
     private String email;
     @JsonIgnore
     private String password;
-    private String firstName;
-    private String lastname;
     private String status;
     @JsonIgnore
     private String refreshToken;
