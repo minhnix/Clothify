@@ -1,6 +1,6 @@
 package com.clothify.mapper;
 
-import com.clothify.domain.User;
+import com.clothify.domain.user.User;
 import com.clothify.security.jwt.JwtPayload;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

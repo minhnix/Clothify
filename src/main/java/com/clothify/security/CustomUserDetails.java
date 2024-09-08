@@ -1,7 +1,7 @@
 package com.clothify.security;
 
-import com.clothify.domain.Role;
-import com.clothify.domain.User;
+import com.clothify.domain.user.Role;
+import com.clothify.domain.user.User;
 import com.clothify.domain.enumuration.RoleName;
 import jakarta.validation.Valid;
 import org.springframework.security.core.GrantedAuthority;

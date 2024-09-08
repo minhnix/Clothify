@@ -1,6 +1,6 @@
 package com.clothify.security.jwt;
 
-import com.clothify.domain.Role;
+import com.clothify.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

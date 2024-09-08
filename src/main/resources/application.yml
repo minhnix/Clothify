@@ -1,18 +1,20 @@
 spring:
   application:
     name: Clothify
-
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/clothify
     username: postgres
-    password: root
-
+    password: 0808
+    hikari:
+      auto-commit: false
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     open-in-view: false
+server:
+  port: 8888
 
 jwt:
   access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION_MS:10080000}

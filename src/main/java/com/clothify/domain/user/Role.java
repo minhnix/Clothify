@@ -1,4 +1,4 @@
-package com.clothify.domain;
+package com.clothify.domain.user;
 
 import com.clothify.domain.enumuration.RoleName;
 import jakarta.persistence.*;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
+import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
@@ -17,13 +18,13 @@ import org.hibernate.annotations.NaturalId;
 @AllArgsConstructor
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue
+  private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @NaturalId
-    private RoleName name;
+  @Enumerated(EnumType.STRING)
+  @NaturalId
+  private RoleName name;
 
-    private String description;
+  private String description;
 }

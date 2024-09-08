@@ -1,7 +1,7 @@
 package com.clothify.security;
 
-import com.clothify.domain.User;
-import com.clothify.domain.UserEntityGraph;
+import com.clothify.domain.user.User;
+import com.clothify.domain.user.UserEntityGraph;
 import com.clothify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
