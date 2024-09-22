@@ -1,6 +1,6 @@
 package com.clothify.security.jwt;
 
-import com.clothify.domain.User;
+import com.clothify.domain.user.User;
 import com.clothify.exception.AuthFailureException;
 import com.clothify.mapper.UserMapper;
 import com.clothify.security.CustomUserDetails;

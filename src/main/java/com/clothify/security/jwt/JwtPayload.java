@@ -1,13 +1,12 @@
 package com.clothify.security.jwt;
 
-import com.clothify.domain.Role;
+import com.clothify.domain.enumuration.PermissionType;
+import com.clothify.domain.enumuration.Role;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -20,5 +19,6 @@ public class JwtPayload {
     private String firstName;
     private String lastname;
     private String status;
-    private Set<Role> roles;
+    private Role role;
+    private PermissionType permission;
 }

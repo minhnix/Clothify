@@ -1,6 +1,9 @@
 package com.clothify.config;
 
 import com.clothify.domain.constants.AppConstants;
+import com.clothify.security.CustomUserDetails;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -9,31 +12,29 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Optional;
-
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfig {
-    @Bean
-    public AuditorAware<Long> auditorProvider() {
-        return new SpringSecurityAuditAware();
-    }
+  @Bean
+  public AuditorAware<UUID> auditorProvider() {
+    return new SpringSecurityAuditAware();
+  }
 }
-class SpringSecurityAuditAware implements AuditorAware<Long> {
 
-    @Override
-    public Optional<Long> getCurrentAuditor() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+class SpringSecurityAuditAware implements AuditorAware<UUID> {
 
-        if (authentication == null ||
-                !authentication.isAuthenticated() ||
-                authentication instanceof AnonymousAuthenticationToken) {
-            return Optional.of(AppConstants.SYSTEM);
-        }
+  @Override
+  public Optional<UUID> getCurrentAuditor() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
-//        return Optional.ofNullable(userPrincipal.getId());
-        return Optional.of(1L);
+    if (authentication == null
+        || !authentication.isAuthenticated()
+        || authentication instanceof AnonymousAuthenticationToken) {
+      return Optional.of(AppConstants.SYSTEM);
     }
+
+    CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
+
+    return Optional.ofNullable(userPrincipal.getId());
+  }
 }
