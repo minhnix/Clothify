@@ -43,7 +43,7 @@ public class Product extends AbstractAuditing {
   @Column(name = "product_slug", nullable = false, unique = true)
   private String slug;
 
-  @Column(name = "product_description")
+  @Column(name = "product_description", columnDefinition = "TEXT")
   private String description;
 
   @Column(name = "product_image")

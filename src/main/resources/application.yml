@@ -5,7 +5,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/clothify
     username: postgres
-    password: 0808
+    password: root
     hikari:
       auto-commit: false
   jpa:
@@ -13,6 +13,21 @@ spring:
       ddl-auto: update
     show-sql: true
     open-in-view: false
+  profiles:
+    include: secret
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          port: 587
+          starttls:
+            enable: true
+    protocol: smtp
 server:
   port: 8888
 

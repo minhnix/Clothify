@@ -1,95 +1,87 @@
 package com.clothify.security;
 
-import com.clothify.domain.user.Role;
+import com.clothify.domain.enumuration.Role;
 import com.clothify.domain.user.User;
-import com.clothify.domain.enumuration.RoleName;
-import jakarta.validation.Valid;
+import java.util.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 public class CustomUserDetails implements UserDetails {
-    @Valid
-    private final User user;
-    public final Collection<? extends GrantedAuthority> authorities;
+  private final User user;
+  public final Collection<? extends GrantedAuthority> authorities;
 
-    public CustomUserDetails(User user, Collection<? extends GrantedAuthority> authorities) {
-        this.user = user;
-        this.authorities = authorities;
-    }
+  public CustomUserDetails(User user, Collection<? extends GrantedAuthority> authorities) {
+    this.user = user;
+    this.authorities = authorities;
+  }
 
-    public static CustomUserDetails create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
+  public static CustomUserDetails create(User user) {
+    List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().name()));
+    return new CustomUserDetails(user, authorities);
+  }
 
-        return new CustomUserDetails(
-                user,
-                authorities
-        );
-    }
-    public boolean isAdmin() {
-        return user.getRoles().stream()
-                .anyMatch(role -> role.getName().equals(RoleName.ROLE_ADMIN));
-    }
-    public UUID getId() {
-        return user.getId();
-    }
-    public User getUser() {
-        return user;
-    }
-    public Set<Role> getRole() {
-        return user.getRoles();
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+  public boolean isAdmin() {
+    return user.getRole().equals(Role.ROLE_ADMIN);
+  }
 
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
+  public UUID getId() {
+    return user.getId();
+  }
 
-    @Override
-    public String getUsername() {
-        return user.getEmail();
-    }
+  public User getUser() {
+    return user;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  public Role getRole() {
+    return user.getRole();
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return authorities;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public String getPassword() {
+    return user.getPassword();
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+  @Override
+  public String getUsername() {
+    return user.getEmail();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomUserDetails that = (CustomUserDetails) o;
-        return Objects.equals(user.getId(), that.user.getId());
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(user.getId());
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CustomUserDetails that = (CustomUserDetails) o;
+    return Objects.equals(user.getId(), that.user.getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(user.getId());
+  }
 }

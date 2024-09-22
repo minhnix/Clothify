@@ -6,8 +6,9 @@ import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaReposito
 import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaSpecificationExecutor;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface UserRepository extends EntityGraphJpaRepository<User, Long>, EntityGraphJpaSpecificationExecutor<User> {
+public interface UserRepository extends EntityGraphJpaRepository<User, UUID>, EntityGraphJpaSpecificationExecutor<User> {
     Optional<User> findByEmail(String email);
     Optional<User> findByEmail(String email, EntityGraph entityGraph);
     Boolean existsByEmail(String email);

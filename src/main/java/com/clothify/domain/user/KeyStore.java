@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "token_store")
-public class TokenStore extends AbstractAuditing {
+public class KeyStore extends AbstractAuditing {
   @Id
   @GeneratedValue
   @Column(name = "id")
@@ -30,7 +30,7 @@ public class TokenStore extends AbstractAuditing {
   private UUID userId;
 
   @Column(name = "refresh_token")
-  private UUID refreshToken;
+  private String refreshToken;
 
   @Column(name = "revoked_at")
   private Timestamp revokedAt;

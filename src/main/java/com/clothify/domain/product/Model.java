@@ -2,10 +2,9 @@ package com.clothify.domain.product;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +40,7 @@ public class Model extends AbstractAuditing {
 
   @Type(JsonType.class)
   @Column(columnDefinition = "JSON")
-  private List<ProductOptionCombined> modelCombined;
+  private Map<String, ProductOptionCombined> modelCombined; // id: option_id, value
 
   @OneToOne(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Inventory inventory;

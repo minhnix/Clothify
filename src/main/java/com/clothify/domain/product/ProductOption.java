@@ -16,7 +16,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductOption {
-//  elements
   @Id
   @GeneratedValue
   @Column(name = "product_option_id")

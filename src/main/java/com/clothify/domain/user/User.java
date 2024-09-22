@@ -1,13 +1,12 @@
 package com.clothify.domain.user;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
+import com.clothify.domain.enumuration.PermissionType;
+import com.clothify.domain.enumuration.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,16 +25,13 @@ public class User extends AbstractAuditing {
   @Email @NotNull @NaturalId private String email;
   @JsonIgnore private String password;
   private String status;
+  private String firstname;
+  private String lastname;
+  private String avatar;
 
-  @ManyToMany
-  @JoinTable(
-      name = "user_roles",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id"))
-  @JsonIgnore
-  private Set<Role> roles = new HashSet<>();
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "permission_id")
-  private Permission permission;
+  @Enumerated(EnumType.STRING)
+  private PermissionType permission;
 }
