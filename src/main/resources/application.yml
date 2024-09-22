@@ -29,11 +29,16 @@ spring:
             enable: true
     protocol: smtp
 server:
-  port: 8888
+  port: 8080
 
 jwt:
   access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION_MS:10080000}
   refresh-token-expiration-ms: ${REFRESH_TOKEN_EXPIRATION_MS:10080000}
   secretKey: ${SECRET_KEY:421892e189udsauhnuhwu7iheuiwqghyu8ghhIBEDHUWQBAHDFJSABewqjuihusjahuIHUIDSAHUIDSHAJKSBNAJKDS78AYH2318DUWAHDJSKAdhsja}
 
-
+app:
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    username: ${REDIS_USER:default}
+    password: ${REDIS_PASS:default}

@@ -29,7 +29,7 @@ public class KeyStore extends AbstractAuditing {
   @Column(name = "user_id", insertable = false, updatable = false)
   private UUID userId;
 
-  @Column(name = "refresh_token")
+  @Column(name = "refresh_token", length = 1024)
   private String refreshToken;
 
   @Column(name = "revoked_at")
