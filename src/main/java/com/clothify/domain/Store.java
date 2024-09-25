@@ -8,6 +8,8 @@ import com.clothify.domain.enumuration.OpenStatus;
 import com.clothify.domain.user.User;
 import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -64,4 +66,8 @@ public class Store extends AbstractAuditing {
   private City city;
 
   @Column private String street;
+
+  private Timestamp openTime;
+
+  private Timestamp closeTime;
 }

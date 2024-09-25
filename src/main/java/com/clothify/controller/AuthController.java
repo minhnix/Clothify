@@ -17,13 +17,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("api/v1/auth")
 @Slf4j
 @RequiredArgsConstructor
 public class AuthController {
   private final AuthService authService;
 
-  @PostMapping("/signup")
+  @PostMapping("/sign-up")
   @ResponseStatus(HttpStatus.CREATED)
   public ApiResponse registerUser(@Valid @RequestBody SignUpRequest request) {
     return authService.registerCustomer(request);
