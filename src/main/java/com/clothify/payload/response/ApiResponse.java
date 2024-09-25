@@ -52,7 +52,7 @@ public class ApiResponse {
         return new ApiResponse(data, metadata, message, 200);
     }
 
-    public static ApiResponse successWithOutMetadata(Object data, String message) {
+    public static ApiResponse successWithoutMeta(Object data, String message) {
         return new ApiResponse(data, message, 200);
     }
 
