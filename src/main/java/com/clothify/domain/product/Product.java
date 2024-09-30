@@ -1,6 +1,7 @@
 package com.clothify.domain.product;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
+import com.clothify.domain.warehouse.InventoryProduct;
 import com.clothify.utils.SlugUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
@@ -36,6 +37,10 @@ public class Product extends AbstractAuditing {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
+
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "brand_id", nullable = false)
+  private Brand brand;
 
   @Column(name = "product_name", nullable = false)
   private String name;

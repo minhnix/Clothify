@@ -1,7 +1,6 @@
 package com.clothify.domain.order;
 
 import com.clothify.domain.product.Model;
-import com.clothify.domain.product.Voucher;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.UUID;
@@ -35,10 +34,6 @@ public class OrderDetail {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "model_id", nullable = false)
   private Model model;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "voucher_id")
-  private Voucher voucher;
 
   private Long quantity;
   private Long price;

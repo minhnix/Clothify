@@ -1,6 +1,7 @@
-package com.clothify.domain.product;
+package com.clothify.domain.warehouse;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
+import com.clothify.domain.product.Model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
