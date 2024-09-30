@@ -1,17 +1,14 @@
-package com.clothify.domain.product;
+package com.clothify.domain.order;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
 import com.clothify.domain.enumuration.DiscountType;
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(
@@ -45,10 +42,6 @@ public class Voucher extends AbstractAuditing {
 
   @Column(name = "voucher_image", columnDefinition = "TEXT")
   private String image;
-
-  @Column(name = "voucher_condition", columnDefinition = "TEXT[]")
-  @Type(ListArrayType.class)
-  private List<String> applyForCategory;
 
   @Column(nullable = false)
   private Timestamp startDate;

@@ -1,8 +1,9 @@
 package com.clothify.domain.order;
 
-import com.clothify.domain.user.User;
 import com.clothify.domain.abstract_entity.AbstractAuditing;
 import com.clothify.domain.enumuration.OrderStatus;
+import com.clothify.domain.user.User;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "orders")
@@ -42,6 +44,10 @@ public class Order extends AbstractAuditing {
 
   private String note;
   private String trackingNumber;
+
+  @Type(JsonType.class)
+  @Column(columnDefinition = "jsonb")
+  private VoucherApply voucherApply;
 
   @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, optional = false)
   private Payment payment;

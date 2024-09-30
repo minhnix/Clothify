@@ -1,6 +1,7 @@
 package com.clothify.domain.product;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
+import com.clothify.domain.warehouse.Inventory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;

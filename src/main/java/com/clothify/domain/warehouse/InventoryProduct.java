@@ -1,6 +1,7 @@
-package com.clothify.domain.product;
+package com.clothify.domain.warehouse;
 
 import com.clothify.domain.abstract_entity.AbstractAuditing;
+import com.clothify.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
