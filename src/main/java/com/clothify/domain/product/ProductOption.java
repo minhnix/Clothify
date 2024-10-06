@@ -2,12 +2,11 @@ package com.clothify.domain.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "product_options")
@@ -29,6 +28,9 @@ public class ProductOption {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "option_id", nullable = false)
   private Option option;
+
+  @Column(name = "option_id", insertable = false, updatable = false)
+  private UUID optionId;
 
   @Column(nullable = false)
   private String value;

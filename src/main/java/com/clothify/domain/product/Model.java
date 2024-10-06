@@ -14,11 +14,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(
-    name = "models",
-    uniqueConstraints = {
-      @UniqueConstraint(columnNames = {"product_id"}),
-    })
+@Table(name = "models")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,8 +36,8 @@ public class Model extends AbstractAuditing {
   private Long price;
 
   @Type(JsonType.class)
-  @Column(columnDefinition = "JSON")
-  private Map<String, ProductOptionCombined> modelCombined; // id: option_id, value
+  @Column(columnDefinition = "JSONB")
+  private Map<UUID, ProductOptionCombined> details; // id: option_id, value
 
   @OneToOne(mappedBy = "model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Inventory inventory;

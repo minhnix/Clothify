@@ -1,7 +1,5 @@
 package com.clothify.domain.address;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ward")
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Ward {
   @Id
   @GeneratedValue

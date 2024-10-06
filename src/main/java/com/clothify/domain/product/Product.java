@@ -8,7 +8,6 @@ import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,13 +59,15 @@ public class Product extends AbstractAuditing {
   @Column(name = "product_price")
   private Long price;
 
+  private boolean isVariant;
+
   @JsonIgnore
   @Column(name = "product_is_published")
   private boolean isPublished = false;
 
   @Type(JsonType.class)
-  @Column(columnDefinition = "JSON")
-  private Map<String, String> attributes;
+  @Column(columnDefinition = "JSONB")
+  private String attributes;
 
   @OneToOne(
       fetch = FetchType.LAZY,
