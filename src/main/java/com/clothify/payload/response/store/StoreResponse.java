@@ -3,20 +3,16 @@ package com.clothify.payload.response.store;
 import com.clothify.domain.Store;
 import com.clothify.payload.response.address.AddressResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-
 @Setter
 @Getter
 @Builder
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoreResponse {
   private UUID id;
@@ -43,9 +39,9 @@ public class StoreResponse {
         .description(store.getDescription())
         .imagesDescription(store.getBranchImagesDescription())
         .socialUrls(store.getSocialUrls())
-        .city(AddressResponse.toAddressResponse(store.getCity()))
-        .district(AddressResponse.toAddressResponse(store.getDistrict()))
-        .ward(AddressResponse.toAddressResponse(store.getWard()))
+        .city(AddressResponse.toResponse(store.getCity()))
+        .district(AddressResponse.toResponse(store.getDistrict()))
+        .ward(AddressResponse.toResponse(store.getWard()))
         .street(store.getStreet())
         .openTime(store.getOpenTime())
         .closeTime(store.getCloseTime())

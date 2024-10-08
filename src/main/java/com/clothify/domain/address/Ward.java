@@ -1,9 +1,8 @@
 package com.clothify.domain.address;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.UUID;
+import lombok.*;
 
 @Builder
 @Entity

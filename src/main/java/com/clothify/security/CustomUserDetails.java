@@ -1,5 +1,6 @@
 package com.clothify.security;
 
+import com.clothify.domain.enumuration.PermissionType;
 import com.clothify.domain.enumuration.Role;
 import com.clothify.domain.user.User;
 import java.util.*;
@@ -8,8 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
-  private final User user;
   public final Collection<? extends GrantedAuthority> authorities;
+  private final User user;
 
   public CustomUserDetails(User user, Collection<? extends GrantedAuthority> authorities) {
     this.user = user;
@@ -19,6 +20,10 @@ public class CustomUserDetails implements UserDetails {
   public static CustomUserDetails create(User user) {
     List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().name()));
     return new CustomUserDetails(user, authorities);
+  }
+
+  public PermissionType getPermissionType() {
+    return user.getPermission();
   }
 
   public boolean isAdmin() {

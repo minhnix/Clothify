@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
-  public static final String[] PUBLIC_URLS = {"/api/v1/auth/**", "/api/v1/**", "/test"};
+  public static final String[] PUBLIC_URLS = {"/api/v1/auth/**", "/test"};
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final UserDetailsService userDetailsService;
 
@@ -59,7 +59,7 @@ public class WebSecurityConfig {
             auth ->
                 auth.requestMatchers(PUBLIC_URLS)
                     .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/v1/**")
+                    .requestMatchers(HttpMethod.GET)
                     .permitAll()
                     .anyRequest()
                     .authenticated())

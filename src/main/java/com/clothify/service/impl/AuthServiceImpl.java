@@ -2,15 +2,20 @@ package com.clothify.service.impl;
 
 import static com.clothify.domain.constants.AppConstants.MAIL_VERIFY_EXPIRED_TIME_MINUTES;
 
+import com.clothify.common.CommonFunction;
+import com.clothify.domain.constants.AppConstants;
 import com.clothify.domain.enumuration.Role;
 import com.clothify.domain.user.KeyStore;
 import com.clothify.domain.user.User;
+import com.clothify.event.AddStaffEvent;
 import com.clothify.event.RegisterCustomerEvent;
+import com.clothify.event.RequestDeleteAccountEvent;
 import com.clothify.exception.AuthFailureException;
 import com.clothify.exception.BadRequestException;
 import com.clothify.payload.dto.PreUserDTO;
-import com.clothify.payload.request.LoginRequest;
-import com.clothify.payload.request.SignUpRequest;
+import com.clothify.payload.request.auth.LoginRequest;
+import com.clothify.payload.request.auth.SignUpRequest;
+import com.clothify.payload.request.staff.AddStaffRequest;
 import com.clothify.payload.response.ApiResponse;
 import com.clothify.repository.KeyStoreRepository;
 import com.clothify.repository.UserRepository;
@@ -29,7 +34,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import com.sun.security.auth.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -55,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
 
   @Override
   public ApiResponse registerCustomer(SignUpRequest user) {
-    if (userRepository.existsByEmail(user.getEmail())) {
+    if (Boolean.TRUE.equals(userRepository.existsByEmail(user.getEmail()))) {
       throw new BadRequestException("Email already exists");
     }
     String encodedEmail = Base64.getEncoder().encodeToString(user.getEmail().getBytes());
@@ -143,5 +147,91 @@ public class AuthServiceImpl implements AuthService {
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public void requestDeleteAccount(UUID userId) {
+    User user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new BadRequestException("User not found"));
+    if (user.getStatus().equals("DELETED")) {
+      throw new BadRequestException("Account already deleted");
+    }
+
+    String deleteToken = CommonFunction.generateCode(8);
+    user.setDeleteToken(deleteToken);
+    userRepository.save(user);
+
+    PreUserDTO preUserDTO = PreUserDTO.builder().email(user.getEmail()).token(deleteToken).build();
+
+    applicationEventPublisher.publishEvent(new RequestDeleteAccountEvent(preUserDTO));
+  }
+
+  @Override
+  public void confirmDeleteAccount(UUID userId, String token) {
+    User user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new BadRequestException("User not found"));
+    if (!token.equals(user.getDeleteToken())) {
+      throw new BadRequestException("Invalid token");
+    }
+    user.setEmailRestore(user.getEmail());
+    user.setEmail(CommonFunction.generateRandomEmail(10));
+    user.setDeletedAt(CommonFunction.getCurrentDateTime());
+    userRepository.save(user);
+  }
+
+  @Override
+  public void deleteAccount(UUID userId) {
+    User user =
+        userRepository
+            .findById(userId)
+            .orElseThrow(() -> new BadRequestException("User not found"));
+
+    if (Role.ROLE_ADMIN.equals(user.getRole())) {
+      throw new BadRequestException("You can not delete admin");
+    }
+
+    user.setEmailRestore(user.getEmail());
+    user.setEmail(CommonFunction.generateRandomEmail(10));
+    user.setDeletedAt(CommonFunction.getCurrentDateTime());
+    userRepository.save(user);
+  }
+
+  @Override
+  public void addStaff(UUID userId, AddStaffRequest addStaffRequest) {
+    for (String staffEmail : addStaffRequest.getEmails()) {
+      if (Boolean.TRUE.equals(userRepository.existsByEmail(staffEmail))) {
+        throw new BadRequestException("Email already exists");
+      }
+
+      PreUserDTO preUserDTO =
+          PreUserDTO.builder()
+              .email(staffEmail)
+              .password(CommonFunction.generatePassword())
+              .build();
+
+      registerStaff(preUserDTO.getEmail(), preUserDTO.getPassword());
+      //      String json = JsonUtils.objectToJsonString(preUserDTO);
+      //      redisTemplate
+      //          .opsForValue()
+      //          .set(preUserDTO.getEmail(), json, AppConstants.MAIL_ADD_STAFF, TimeUnit.MINUTES);
+      applicationEventPublisher.publishEvent(new AddStaffEvent(preUserDTO));
+    }
+  }
+
+  @Override
+  public User registerStaff(String email, String password) {
+    User user = new User();
+    user.setPassword(passwordEncoder.encode(password));
+    user.setFirstname("Staff");
+    user.setStatus("ACTIVE");
+    user.setEmail(email);
+    user.setRole(Role.ROLE_STAFF);
+    User savedUser = userRepository.save(user);
+    keyStoreService.createNewKeyStore(savedUser.getId(), null);
+    return savedUser;
   }
 }

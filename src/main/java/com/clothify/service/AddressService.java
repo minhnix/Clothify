@@ -45,18 +45,18 @@ public class AddressService {
     }
 
     public List<AddressResponse> getAllCity() {
-        return cityRepository.findAllOrderByName().stream().map(AddressResponse::toAddressResponse).toList();
+        return cityRepository.findAllOrderByName().stream().map(AddressResponse::toResponse).toList();
     }
 
     public List<AddressResponse> getDistrictsByCityId(UUID cityId) {
         return districtRepository.getDistrictByCityId(cityId).stream()
-                .map(AddressResponse::toAddressResponse)
+                .map(AddressResponse::toResponse)
                 .toList();
     }
 
     public List<AddressResponse> getWardSByDistrictId(UUID districtId) {
         return wardRepository.getWardByDistrictId(districtId).stream()
-                .map(AddressResponse::toAddressResponse)
+                .map(AddressResponse::toResponse)
                 .toList();
     }
 }

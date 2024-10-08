@@ -15,23 +15,28 @@ public class AddressResponse {
   private UUID id;
   private String name;
 
-  public static AddressResponse toAddressResponse(City city) {
+  public static AddressResponse toResponse(City city) {
     if (city == null) return null;
     return AddressResponse.builder().id(city.getId()).name(city.getName()).build();
   }
 
-  public static AddressResponse toAddressResponse(District district) {
+  public static AddressResponse toResponse(District district) {
     if (district == null) return null;
     return AddressResponse.builder().id(district.getId()).name(district.getName()).build();
   }
 
-  public static AddressResponse toAddressResponse(Ward ward) {
+  public static AddressResponse toResponse(Ward ward) {
     if (ward == null) return null;
     return AddressResponse.builder().id(ward.getId()).name(ward.getName()).build();
   }
 
-  public static AddressResponse toAddressResponse(String id, String name) {
+  public static AddressResponse toResponse(String id, String name) {
     if (id == null || name == null) return null;
     return AddressResponse.builder().id(UUID.fromString(id)).name(name).build();
+  }
+
+  public static AddressResponse toResponse(UUID id, String name) {
+    if (id == null || name == null) return null;
+    return AddressResponse.builder().id(id).name(name).build();
   }
 }

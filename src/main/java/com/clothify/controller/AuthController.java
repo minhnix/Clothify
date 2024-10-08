@@ -1,11 +1,13 @@
 package com.clothify.controller;
 
 import com.clothify.exception.AuthFailureException;
-import com.clothify.payload.request.LoginRequest;
-import com.clothify.payload.request.SignUpRequest;
+import com.clothify.payload.request.auth.LoginRequest;
+import com.clothify.payload.request.auth.SignUpRequest;
 import com.clothify.payload.response.ApiResponse;
+import com.clothify.security.jwt.JwtUtils;
 import com.clothify.security.jwt.Token;
 import com.clothify.service.AuthService;
+import com.clothify.service.KeyStoreService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
   private final AuthService authService;
+  private final KeyStoreService keyStoreService;
+  private final JwtUtils jwtUtils;
 
   @PostMapping("/sign-up")
   @ResponseStatus(HttpStatus.CREATED)

@@ -9,30 +9,6 @@ public class ApiResponse {
     private Object metadata;
     private Object data;
 
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public Object getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Object metadata) {
-        this.metadata = metadata;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public ApiResponse(Object data, Object metadata, String message, int code) {
         this.message = message;
         this.code = code;
@@ -61,6 +37,30 @@ public class ApiResponse {
 
     public static ApiResponse successWithoutDataAndMeta(String message) {
         return new ApiResponse(message, 200);
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public Object getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {
