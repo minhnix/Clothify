@@ -1,4 +1,4 @@
-package com.clothify.payload.request;
+package com.clothify.payload.request.auth;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

@@ -1,11 +1,10 @@
 package com.clothify.controller;
 
 import com.clothify.annotation.CurrentUser;
-import com.clothify.payload.request.StoreRequest;
+import com.clothify.payload.request.store.StoreRequest;
 import com.clothify.payload.response.ApiResponse;
 import com.clothify.security.CustomUserDetails;
 import com.clothify.service.StoreService;
-import com.sun.security.auth.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

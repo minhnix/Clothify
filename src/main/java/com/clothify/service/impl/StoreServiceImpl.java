@@ -5,7 +5,7 @@ import com.clothify.domain.enumuration.Role;
 import com.clothify.domain.user.User;
 import com.clothify.exception.ForbiddenException;
 import com.clothify.exception.NotFoundException;
-import com.clothify.payload.request.StoreRequest;
+import com.clothify.payload.request.store.StoreRequest;
 import com.clothify.payload.response.ApiResponse;
 import com.clothify.payload.response.store.StoreResponse;
 import com.clothify.repository.StoreRepository;

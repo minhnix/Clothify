@@ -25,7 +25,7 @@ public class DatabaseInitializer implements CommandLineRunner {
   @Transactional
   @Override
   public void run(String... args) throws Exception {
-    log.info("Initializing database");
-    storeServiceImpl.createStore();
+//    log.info("Initializing database");
+//    storeServiceImpl.createStore();
   }
 }

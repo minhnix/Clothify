@@ -1,7 +1,7 @@
 package com.clothify.service;
 
 import com.clothify.domain.Store;
-import com.clothify.payload.request.StoreRequest;
+import com.clothify.payload.request.store.StoreRequest;
 import com.clothify.payload.response.ApiResponse;
 
 import java.util.UUID;

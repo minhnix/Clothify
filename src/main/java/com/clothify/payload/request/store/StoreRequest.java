@@ -1,7 +1,5 @@
-package com.clothify.payload.request;
+package com.clothify.payload.request.store;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,7 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class StoreRequest {
   private String phoneNumber;
   private String name;
