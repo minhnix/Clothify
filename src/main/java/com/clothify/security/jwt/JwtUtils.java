@@ -9,14 +9,14 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import java.security.Key;
+import java.security.KeyStore;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
@@ -43,6 +43,19 @@ public class JwtUtils {
             throw new AuthFailureException("INVALID_CREDENTIALS");
         }
     }
+
+  public KeyStore getKeyStoreFromToken(String token) {
+    //        this.validateAccessToken(token, appProperties.getAuth().getTokenSecret());
+    //        KeyStore keyStore =
+    //                keyS.getOauthAccessTokenById(
+    //                        this.getUUIDFromToken(token,
+    // appProperties.getAuth().getTokenSecret()));
+    //        if (oauthAccessToken.getRevokedAt() != null) {
+    //            throw new ForbiddenException(MessageConstant.REVOKED_TOKEN);
+    //        }
+    //        return oauthAccessToken;
+    return null;
+  }
 
     public String generateToken(JwtPayload payload, long expirationTimeMs) {
         Date now = new Date();
